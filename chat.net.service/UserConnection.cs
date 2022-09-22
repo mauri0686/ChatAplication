@@ -1,6 +1,6 @@
 namespace ChatService;
 
-public class ChatApp
+public class UserConnection
 {
     public string User { get; set; }
     public string Room { get; set; }

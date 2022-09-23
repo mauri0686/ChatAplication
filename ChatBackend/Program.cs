@@ -16,17 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.WithOrigins("https://localhost/")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-        
-    });
-});
+
 
 builder.Services.AddDbContext<ChatAppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Conn")));
@@ -68,7 +58,10 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
-app.UseCors();
+app.UseCors( x=> x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 app.MapControllers();
 app.UseRouting();
 app.UseAuthentication();

@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import Lobby from './components/Lobby';
 import Chat from './components/Chat';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as signalR from "@microsoft/signalr";
+import {BrowserRouter, Route} from "react-router-dom";
+import {Nav} from "react-bootstrap";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 const App = () => {
   const [connection, setConnection] = useState();
@@ -58,13 +62,14 @@ const App = () => {
       console.log(e);
     }
   }
-
+ 
   return  <div className="flex min-h-screen flex-col justify-center py-2 h-screen w-screen">
     
       <div className='app'>
       <h2 className="text-white">Chat Aplication</h2>
       <hr className='line' />
-      {!connection
+        
+      {!connection 
         ? <Lobby joinRoom={joinRoom} />
         : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />}
     </div>

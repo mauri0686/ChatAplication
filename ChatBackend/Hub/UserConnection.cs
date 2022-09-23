@@ -1,4 +1,4 @@
-namespace ChatService;
+namespace ChatBackend.Hub;
 
 public class UserConnection
 {

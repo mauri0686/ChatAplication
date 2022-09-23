@@ -28,7 +28,7 @@ public class RoomsController : ControllerBase
         return Ok(teams);
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:Guid}")]
     public async Task<IActionResult> Get(Guid id)
     {
         var team = await _context.Rooms.FirstOrDefaultAsync(x => x.id == id);

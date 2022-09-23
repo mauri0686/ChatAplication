@@ -4,10 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatReactSite", "ChatReactS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBackend", "ChatBackend\ChatBackend.csproj", "{00ED8DEE-48BA-4957-BA5E-265EDC449958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBot", "ChatBot\ChatBot.csproj", "{2A12F738-17D1-405D-B23D-1A433E806317}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestChatApp", "UnitTestChatApp\UnitTestChatApp.csproj", "{21364862-C4CC-4DAF-A1C9-6BCA835D6A1C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,13 +18,5 @@ Global
 		{00ED8DEE-48BA-4957-BA5E-265EDC449958}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00ED8DEE-48BA-4957-BA5E-265EDC449958}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00ED8DEE-48BA-4957-BA5E-265EDC449958}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A12F738-17D1-405D-B23D-1A433E806317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A12F738-17D1-405D-B23D-1A433E806317}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A12F738-17D1-405D-B23D-1A433E806317}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A12F738-17D1-405D-B23D-1A433E806317}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21364862-C4CC-4DAF-A1C9-6BCA835D6A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21364862-C4CC-4DAF-A1C9-6BCA835D6A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21364862-C4CC-4DAF-A1C9-6BCA835D6A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21364862-C4CC-4DAF-A1C9-6BCA835D6A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

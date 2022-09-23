@@ -28,7 +28,6 @@ namespace ChatService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -182,38 +181,8 @@ namespace ChatService.Migrations
                 {
                     table.PrimaryKey("PK_Messages", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_userId",
-                        column: x => x.userId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Messages_Rooms_roomId",
                         column: x => x.roomId,
-                        principalTable: "Rooms",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoomUser",
-                columns: table => new
-                {
-                    roomsid = table.Column<Guid>(type: "TEXT", nullable: false),
-                    usersId = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoomUser", x => new { x.roomsid, x.usersId });
-                    table.ForeignKey(
-                        name: "FK_RoomUser_AspNetUsers_usersId",
-                        column: x => x.usersId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RoomUser_Rooms_roomsid",
-                        column: x => x.roomsid,
                         principalTable: "Rooms",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -260,16 +229,6 @@ namespace ChatService.Migrations
                 name: "IX_Messages_roomId",
                 table: "Messages",
                 column: "roomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_userId",
-                table: "Messages",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoomUser_usersId",
-                table: "RoomUser",
-                column: "usersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -291,9 +250,6 @@ namespace ChatService.Migrations
 
             migrationBuilder.DropTable(
                 name: "Messages");
-
-            migrationBuilder.DropTable(
-                name: "RoomUser");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

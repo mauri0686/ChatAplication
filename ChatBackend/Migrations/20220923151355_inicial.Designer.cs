@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatService.Migrations
 {
     [DbContext(typeof(ChatAppDbContext))]
-    [Migration("20220923114224_inicial")]
+    [Migration("20220923151355_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,8 +41,6 @@ namespace ChatService.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("roomId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Messages");
                 });
@@ -123,10 +121,6 @@ namespace ChatService.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -177,8 +171,6 @@ namespace ChatService.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -260,28 +252,6 @@ namespace ChatService.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RoomUser", b =>
-                {
-                    b.Property<Guid>("roomsid")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("usersId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("roomsid", "usersId");
-
-                    b.HasIndex("usersId");
-
-                    b.ToTable("RoomUser");
-                });
-
-            modelBuilder.Entity("ChatBackend.Models.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
             modelBuilder.Entity("ChatBackend.Models.Message", b =>
                 {
                     b.HasOne("ChatBackend.Models.Room", "room")
@@ -290,15 +260,7 @@ namespace ChatService.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ChatBackend.Models.User", "user")
-                        .WithMany("messages")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("room");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -352,27 +314,7 @@ namespace ChatService.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RoomUser", b =>
-                {
-                    b.HasOne("ChatBackend.Models.Room", null)
-                        .WithMany()
-                        .HasForeignKey("roomsid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ChatBackend.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("usersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ChatBackend.Models.Room", b =>
-                {
-                    b.Navigation("messages");
-                });
-
-            modelBuilder.Entity("ChatBackend.Models.User", b =>
                 {
                     b.Navigation("messages");
                 });

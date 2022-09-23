@@ -1,4 +1,4 @@
-namespace chat;
+namespace ChatBot;
 
 public class WeatherForecast
 {

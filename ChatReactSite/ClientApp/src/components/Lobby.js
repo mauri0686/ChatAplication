@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import {Button, Form } from "react-bootstrap";
+
+ 
 
 const Lobby = ({ joinRoom }) => {
     const [user, setUser] = useState();
@@ -12,7 +14,13 @@ const Lobby = ({ joinRoom }) => {
         }} >
         <Form.Group>
             <Form.Control placeholder="name" onChange={e => setUser(e.target.value)} />
-            <Form.Control placeholder="room" onChange={e => setRoom(e.target.value)} />
+            {/*<Form.Control placeholder="room" onChange={e => setRoom(e.target.value)} />*/}
+            <Form.Control  as="select" value={room} onChange={e => setRoom(e.target.value)}>                    
+                <option>Pick a Room</option>
+                <option value="General">General</option>
+                <option value="Finance">Finance</option>
+                <option value="Sport">Sport</option>
+            </Form.Control> 
         </Form.Group>
         <Button variant="success" type="submit" disabled={!user || !room}>Join</Button>
     </Form>

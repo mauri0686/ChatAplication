@@ -59,12 +59,15 @@ const App = () => {
     }
   }
 
-  return <div className='app'>
-    <h2 className="text-white">Chat Aplication</h2>
-    <hr className='line' />
-    {!connection
-      ? <Lobby joinRoom={joinRoom} />
-      : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />}
+  return  <div className="flex min-h-screen flex-col justify-center py-2 h-screen w-screen">
+    
+      <div className='app'>
+      <h2 className="text-white">Chat Aplication</h2>
+      <hr className='line' />
+      {!connection
+        ? <Lobby joinRoom={joinRoom} />
+        : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />}
+    </div>
   </div>
 }
 

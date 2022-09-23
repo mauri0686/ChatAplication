@@ -3,6 +3,7 @@ import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import axios from '../api/axios';
+import {Button} from "react-bootstrap";
 const LOGIN_URL = '/api/Authentication/Login';
 
 const Login = () => {
@@ -40,12 +41,12 @@ const Login = () => {
             );
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
-            const accessToken = response?.data?.accessToken;
+            const accessToken = response?.data?.token;
             const roles = response?.data?.roles;
             setAuth({ email, password, roles, accessToken });
             setUser('');
             setPwd('');
-            navigate(from, { replace: true });
+            navigate("/Lobby", { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -62,7 +63,7 @@ const Login = () => {
 
     return (
 
-        <section>
+        <section className='lobby'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 className="text-white">Sign In</h1>
             <form onSubmit={handleSubmit}>
@@ -85,7 +86,8 @@ const Login = () => {
                     value={password}
                     required
                 />
-                <button>Sign In</button>
+                <hr/>
+                <Button type="submit">Join</Button>
             </form>
             <p>
                 Need an Account?<br />

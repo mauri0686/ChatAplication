@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import {Route, Routes} from "react-router-dom";
 import Layout from "./components/Layout";
 import Register from "./components/Register";
+import RequireAuth from "./components/RequireAuth";
  
 const App = () => {
   const [connection, setConnection] = useState();
@@ -68,12 +69,16 @@ const App = () => {
       <h2 className="text-white">Chat Aplication</h2>
       <hr className='line' />
       <Routes>
-        <Route path="/" element={ !connection
-          ? <Lobby joinRoom={joinRoom} />
-          : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />}>
-          {/* public routes */}
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />     
+        <Route path="/" element={<Login />} />       
+        
+          <Route path="register" element={<Register />} />          
+          
+          <Route element={<RequireAuth/>}>
+            <Route path="/Lobby" element={ !connection
+              ? <Lobby joinRoom={joinRoom} />
+              : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />}>
+          </Route>
+
         </Route>
         </Routes>
     </div>

@@ -19,7 +19,7 @@ const App = () => {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
   
-  const joinRoom = async (user, room) => {
+  const joinRoom = async (userEmail, room) => {
     try {
       const connection = new HubConnectionBuilder()
           .withUrl("https://localhost:7284/chat",
@@ -45,7 +45,7 @@ const App = () => {
       
       
       await connection.start();
-      await connection.invoke("JoinRoom", { user, room });
+      await connection.invoke("JoinRoom", { userEmail, room });
       setConnection(connection);
     } catch (e) {
       console.log(e);

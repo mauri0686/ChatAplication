@@ -56,7 +56,7 @@ public class AuthenticationController : ControllerBase
             var new_user = new IdentityUser()
             {
                 Email = requestDto.Email,
-                UserName = requestDto.Email
+                UserName = requestDto.Name
             };
 
             var is_created = await _userManager.CreateAsync(new_user, requestDto.Password);
@@ -91,7 +91,7 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login([FromBody] UserLoginRequestDto loginRequest)
     {
         if (ModelState.IsValid)
-        {
+        {   
             // Check if the user exist
             var existing_user = await _userManager.FindByEmailAsync(loginRequest.Email);
 

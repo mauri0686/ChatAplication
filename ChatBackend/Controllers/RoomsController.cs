@@ -27,8 +27,8 @@ public class RoomsController : ControllerBase
         return Ok(teams);
     }
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("{id:Guid}")]
-    public async Task<IActionResult> Get(Guid id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> Get(int id)
     {
         var team = await _context.Rooms.FirstOrDefaultAsync(x => x.id == id);
 
@@ -48,7 +48,7 @@ public class RoomsController : ControllerBase
     }
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPatch]
-    public async Task<IActionResult> Patch(Guid id, string name)
+    public async Task<IActionResult> Patch(int id, string name)
     {
         var room = await _context.Rooms.FirstOrDefaultAsync(x => x.id == id);
 
@@ -63,7 +63,7 @@ public class RoomsController : ControllerBase
     }
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpDelete]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(int id)
     {
         var room = await _context.Rooms.FirstOrDefaultAsync(x => x.id == id);
 

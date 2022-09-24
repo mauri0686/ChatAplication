@@ -117,7 +117,7 @@ const Login = ({ joinRoom }) => {
                     {/*<Form.Control placeholder="name" onChange={e => setName(e.target.value)} />   */}
                     <Form.Control  as="select" value={room} onChange={e => setRoom(e.target.value)}>
                         <option>Pick a Room</option>
-                        {rooms?.map((r) => <option value={r.name}>{r.name}</option>) }
+                        {rooms?.map((r) => <option value={r.id}>{r.name}</option>) }
                     </Form.Control>
                 </Form.Group>
                 <Button  type="submit" disabled={!email || !room || !password }>SingIn</Button>

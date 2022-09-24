@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatBackend.Migrations
 {
     [DbContext(typeof(ChatAppDbContext))]
-    [Migration("20220923224947_inicial")]
+    [Migration("20220924145911_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,8 +31,8 @@ namespace ChatBackend.Migrations
                     b.Property<string>("message")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("roomId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("roomId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("userId")
                         .IsRequired()
@@ -45,9 +45,9 @@ namespace ChatBackend.Migrations
 
             modelBuilder.Entity("ChatBackend.Models.Room", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("name")
                         .IsRequired()

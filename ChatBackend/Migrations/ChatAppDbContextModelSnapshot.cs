@@ -29,8 +29,8 @@ namespace ChatBackend.Migrations
                     b.Property<string>("message")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("roomId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("roomId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("userId")
                         .IsRequired()
@@ -43,9 +43,9 @@ namespace ChatBackend.Migrations
 
             modelBuilder.Entity("ChatBackend.Models.Room", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("name")
                         .IsRequired()

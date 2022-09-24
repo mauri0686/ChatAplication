@@ -54,7 +54,7 @@ namespace ChatBackend.Migrations
                 {
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    roomId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    roomId = table.Column<int>(type: "INTEGER", nullable: false),
                     userId = table.Column<string>(type: "TEXT", nullable: false),
                     message = table.Column<string>(type: "TEXT", nullable: true),
                     createdAt = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -68,7 +68,8 @@ namespace ChatBackend.Migrations
                 name: "Rooms",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

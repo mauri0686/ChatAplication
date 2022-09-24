@@ -1,25 +1,51 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import axios from '../api/axios';
-import {Button} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 const LOGIN_URL = '/api/Authentication/Login';
 
-const Login = () => {
+const Login = ({ joinRoom }) => {
     const { setAuth } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
-
     const userRef = useRef();
     const errRef = useRef();
-
-    const [email, setUser] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [room, setRoom] = useState();
+    const [rooms, setRooms] = useState();
+    const axiosPrivate = useAxiosPrivate();
+   
 
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+        const getRooms = async () => {
+            try {
+                const response = await axiosPrivate.get('/api/Rooms', {
+                    signal: controller.signal
+                });
+                console.log(response.data);
+                isMounted && setRooms(response.data);
+
+            } catch (err) {
+                console.error(err);
+                navigate('/login', { state: { from: location }, replace: true });
+            }
+        }    
+        
+        getRooms();
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+    }, [])
     useEffect(() => {
         userRef.current.focus();
     }, [])
@@ -38,15 +64,14 @@ const Login = () => {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
-            );
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
-            const accessToken = response?.data?.token;
-            const roles = response?.data?.roles;
-            setAuth({ email, password, roles, accessToken });
-            setUser('');
-            setPwd('');
-            navigate("/Lobby", { replace: true });
+            )
+                const accessToken = response?.data?.token;
+                const roles = response?.data?.roles;
+                setAuth({ email, password, roles, accessToken });
+                setEmail('');
+                setPwd('');          
+                joinRoom(email, room);
+                navigate("/Chat", { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -66,19 +91,20 @@ const Login = () => {
         <section className='lobby'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 className="text-white">Sign In</h1>
-            <form onSubmit={handleSubmit}>
+
+            <Form  onSubmit={handleSubmit}>                  
                 <label htmlFor="email" className="text-white">Email:</label>
                 <input
                     type="text"
                     id="email"
                     ref={userRef}
                     autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     value={email}
                     required
                 />
 
-                <label htmlFor="password" className="text-white">Password:</label>
+                <label htmlFor="password" className="text-login">Password:</label>
                 <input
                     type="password"
                     id="password"
@@ -86,15 +112,24 @@ const Login = () => {
                     value={password}
                     required
                 />
-                <hr/>
-                <Button type="submit">Join</Button>
-            </form>
-            <p>
+                <label htmlFor="room" className="text-login">Room:</label>
+                <Form.Group>
+                    {/*<Form.Control placeholder="name" onChange={e => setName(e.target.value)} />   */}
+                    <Form.Control  as="select" value={room} onChange={e => setRoom(e.target.value)}>
+                        <option>Pick a Room</option>
+                        {rooms?.map((r) => <option value={r.id}>{r.name}</option>) }
+                    </Form.Control>
+                </Form.Group>
+                <Button  type="submit" disabled={!email || !room || !password }>SingIn</Button>
+            </Form>
+            <p className="text-white-50">
                 Need an Account?<br />
-                <span className="line">
+                <span className="text-login">
                     <Link to="/register">Sign Up</Link>
                 </span>
             </p>
+            
+            
         </section>
 
     )

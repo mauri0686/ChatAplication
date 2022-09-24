@@ -23,19 +23,19 @@ public class UsersController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var teams = await _context.Users.ToListAsync();
-        return Ok(teams);
+        var users = await _context.Users.ToListAsync();
+        return Ok(users);
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> Get(int id)
+    [HttpGet("{email}")]
+    public async Task<IActionResult> Get(string email)
     {
-        var team = await _context.Users.FirstOrDefaultAsync(x => x.Id == id.ToString());
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-        if (team == null)
+        if (user == null)
             return BadRequest("Invalid Id");
 
-        return Ok(team);
+        return Ok(user);
     }
 
     [HttpPost]

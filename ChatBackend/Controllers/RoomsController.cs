@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChatBackend.Controllers;
 
-[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")] // api/teams
 [ApiController]
 public class RoomsController : ControllerBase
@@ -27,7 +26,7 @@ public class RoomsController : ControllerBase
         var teams = await _context.Rooms.ToListAsync();
         return Ok(teams);
     }
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("{id:Guid}")]
     public async Task<IActionResult> Get(Guid id)
     {
@@ -38,7 +37,7 @@ public class RoomsController : ControllerBase
 
         return Ok(team);
     }
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost]
     public async Task<IActionResult> Post(Room room)
     {
@@ -47,7 +46,7 @@ public class RoomsController : ControllerBase
         
         return CreatedAtAction("Get", room.id, room);
     }
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPatch]
     public async Task<IActionResult> Patch(Guid id, string name)
     {
@@ -62,7 +61,7 @@ public class RoomsController : ControllerBase
 
         return NoContent();
     }
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpDelete]
     public async Task<IActionResult> Delete(Guid id)
     {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ChatService.Migrations
+namespace ChatBackend.Migrations
 {
     [DbContext(typeof(ChatAppDbContext))]
     partial class ChatAppDbContextModelSnapshot : ModelSnapshot
@@ -37,8 +37,6 @@ namespace ChatService.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("id");
-
-                    b.HasIndex("roomId");
 
                     b.ToTable("Messages");
                 });
@@ -197,9 +195,11 @@ namespace ChatService.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -237,9 +237,11 @@ namespace ChatService.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -248,17 +250,6 @@ namespace ChatService.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ChatBackend.Models.Message", b =>
-                {
-                    b.HasOne("ChatBackend.Models.Room", "room")
-                        .WithMany("messages")
-                        .HasForeignKey("roomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("room");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -310,11 +301,6 @@ namespace ChatService.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ChatBackend.Models.Room", b =>
-                {
-                    b.Navigation("messages");
                 });
 #pragma warning restore 612, 618
         }

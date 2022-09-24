@@ -41,7 +41,7 @@ const Lobby = ({ joinRoom }) => {
                      joinRoom(name, room);
                  }} >
         <Form.Group>
-            <Form.Control placeholder="name" onChange={e => setName(e.target.value)} />   
+            {/*<Form.Control placeholder="name" onChange={e => setName(e.target.value)} />   */}
             <Form.Control  as="select" value={room} onChange={e => setRoom(e.target.value)}>                    
                 <option>Pick a Room</option>
                 {rooms?.map((r) => <option value={r.id}>{r.name}</option>) }         

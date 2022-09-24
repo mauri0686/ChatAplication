@@ -11,6 +11,4 @@ public class Message
     public string? message { get; set; }
     public DateTime createdAt { get; set; }
 
-    //public User user { get; set; }
-    public Room room { get; set; }
 }

@@ -2,7 +2,7 @@ import {  useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -29,7 +29,8 @@ const Register = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
-
+    const navigate = useNavigate();
+    
     useEffect(() => {
         userRef.current.focus();
     }, [])
@@ -71,6 +72,7 @@ const Register = () => {
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response))
             setSuccess(true);
+            navigate('/',  {replace: true });
             //clear state and controlled inputs
             setUser('');
             setPwd('');
@@ -91,19 +93,19 @@ const Register = () => {
     return (
         <>
             {success ? (
-                <section>
-                    <h1>Success!</h1>
+                <section className='lobby'>
+                    <h1 className="text-white">Success!</h1>
                     <p>
                         <a href="#">Sign In</a>
                     </p>
                 </section>
             ) : (
-                <section>
+                <section className='lobby'>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Register</h1>
+                    <h1 className="text-white">Register</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">
-                            Username:
+                        <label className="text-white" htmlFor="username">
+                            Name:
                             <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
                         </label>
@@ -120,7 +122,7 @@ const Register = () => {
                             onFocus={() => setUserFocus(true)}
                             onBlur={() => setUserFocus(false)}
                         />
-                        <label htmlFor="username">
+                        <label className="text-white" htmlFor="username">
                             Email:                          
                         </label>
                         <input
@@ -143,7 +145,7 @@ const Register = () => {
                         </p>
 
 
-                        <label htmlFor="password">
+                        <label className="text-white" htmlFor="password">
                             Password:
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !password ? "hide" : "invalid"} />
@@ -167,7 +169,7 @@ const Register = () => {
                         </p>
 
 
-                        <label htmlFor="confirm_pwd">
+                        <label className="text-white" htmlFor="confirm_pwd">
                             Confirm Password:
                             <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
@@ -187,10 +189,10 @@ const Register = () => {
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
-
+                        <br/>
                         <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
-                    <p>
+                    <p className="text-white-50">
                         Already registered?<br />
                         <span className="line">
                             <Link to="/">Sign In</Link>

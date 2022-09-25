@@ -40,4 +40,4 @@ cd /ChatAplication/ChatReactSite dotnet run
 ### Add as many rooms as you need
 ![](ChatReactSite/ClientApp/assets/img_5.png)
 
-## SingUp is need the first Time
+## SignUp is need the first Time

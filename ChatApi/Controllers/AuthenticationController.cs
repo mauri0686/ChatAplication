@@ -72,12 +72,16 @@ public class AuthenticationController : ControllerBase
                 });
             }
 
+            var error = new List<string>();
+            if (is_created.Errors.Any())
+                foreach (var er in is_created.Errors)
+                {
+                    error.Add(er.Description);
+                }
+            
             return BadRequest(new AuthResult()
             {
-                Errors = new List<string>()
-                {
-                    "Server error"
-                },
+                Errors = error,
                 Result = false
             });
         }

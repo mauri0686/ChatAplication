@@ -37,7 +37,7 @@ const App = () => {
 
     } catch (err) {
       console.error(err);
-      navigate('/login', { state: { from: location }, replace: true });
+      navigate('/', { state: { from: location }, replace: true });
     }
   }
   const joinRoom = async (userEmail, roomId ) => {

@@ -3,7 +3,7 @@ import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import axios from '../api/axios';
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, Image} from "react-bootstrap";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 const LOGIN_URL = '/api/Authentication/Login';
 
@@ -90,8 +90,7 @@ const Login = ({ joinRoom }) => {
 
         <section className='lobby'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1 className="text-white">Sign In</h1>
-
+            <h1 className="text-white">Sign In </h1> 
             <Form  onSubmit={handleSubmit}>                  
                 <label htmlFor="email" className="text-white">Email:</label>
                 <input

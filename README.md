@@ -11,34 +11,33 @@
 ![](ChatReactSite/ClientApp/assets/img_1.png)
 
 
-## API REST .net 6
-![](ChatReactSite/ClientApp/assets/img_2.png)
-
-
 ## Installation
-#### *** The ChatApp.db is included in the repository but it could be created from the code if necessary:
+### *** The Database is SQL Lite. ChatApp.db is included in the repository but it could be created from the code if necessary:
 cd /ChatAplication/ChatInfrastructure
 dotnet ef --startup-project ../ChatApi migrations add inicial
 dotnet ef --startup-project ../ChatApi database update
 *********************************************************
 
-#### Running the ChatApi
+### ChatApi is an API REST .NET 6
 cd /ChatAplication/ChatApi/ dotnet run
 
-#### Running the React Front
+![](ChatReactSite/ClientApp/assets/img_2.png)
+
+### Running React Site
 Configure Chat URL "ChatReactSite/ClientApp/.env"
 REACT_APP_CHAT_URL=https://localhost:{YOUR-PORT}/chat
 
-cd /ChatAplication/ChatReactSite/ClientApp npm start
+cd /ChatAplication/ChatReactSite/ClientApp 
+npm install
+npm start
 or
 cd /ChatAplication/ChatReactSite dotnet run
 
-## SingUp is need
-
-#### Interacting with Api
+### Postman could be use for interacting with the API
 ![](ChatReactSite/ClientApp/assets/img_3.png)
 
 
-#### Add as many rooms as you need
+### Add as many rooms as you need
 ![](ChatReactSite/ClientApp/assets/img_5.png)
 
+## SingUp is need the first Time

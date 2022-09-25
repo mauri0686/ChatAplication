@@ -1,21 +1,19 @@
 # Chat Aplication
 
 ## Technology
-![img_6.png](img_6.png)
-![img_7.png](img_7.png)
-![img_8.png](img_8.png)
-![img_9.png](img_9.png)
+![](ChatReactSite/ClientApp/assets/img_6.png)![](ChatReactSite/ClientApp/assets/img_7.png)![](ChatReactSite/ClientApp/assets/img_8.png)![](ChatReactSite/ClientApp/assets/img_9.png)
+ 
 ### Login
+![](ChatReactSite/ClientApp/assets/img.png)
 
-![img.png](img.png)
 
 ## Chat Lobby
+![](ChatReactSite/ClientApp/assets/img_1.png)
 
-![img_1.png](img_1.png)
 
-## API REST .net 6 
+## API REST .net 6
+![](ChatReactSite/ClientApp/assets/img_2.png)
 
-![img_2.png](img_2.png)
 
 ## Installation
 #### *** The ChatApp.db is included in the repository but it could be created from the code if necessary:
@@ -38,9 +36,9 @@ cd /ChatAplication/ChatReactSite dotnet run
 ## SingUp is need
 
 #### Interacting with Api
+![](ChatReactSite/ClientApp/assets/img_3.png)
 
-![img_3.png](img_3.png)
 
 #### Add as many rooms as you need
+![](ChatReactSite/ClientApp/assets/img_5.png)
 
-![img_5.png](img_5.png)

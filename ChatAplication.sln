@@ -2,7 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatReactSite", "ChatReactSite\ChatReactSite.csproj", "{17DE2956-BA3E-449C-AF01-21780766694E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBackend", "ChatBackend\ChatBackend.csproj", "{00ED8DEE-48BA-4957-BA5E-265EDC449958}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApi", "ChatApi\ChatApi.csproj", "{00ED8DEE-48BA-4957-BA5E-265EDC449958}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatInfrastructure", "ChatInfrastructure\ChatInfrastructure.csproj", "{0CAACA31-DB0E-45A9-89B9-3A6F07AC2719}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatDomain", "ChatDomain\ChatDomain.csproj", "{B857A19A-6566-4828-A40D-279C75AE5682}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +22,13 @@ Global
 		{00ED8DEE-48BA-4957-BA5E-265EDC449958}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00ED8DEE-48BA-4957-BA5E-265EDC449958}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00ED8DEE-48BA-4957-BA5E-265EDC449958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CAACA31-DB0E-45A9-89B9-3A6F07AC2719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CAACA31-DB0E-45A9-89B9-3A6F07AC2719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CAACA31-DB0E-45A9-89B9-3A6F07AC2719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CAACA31-DB0E-45A9-89B9-3A6F07AC2719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B857A19A-6566-4828-A40D-279C75AE5682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B857A19A-6566-4828-A40D-279C75AE5682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B857A19A-6566-4828-A40D-279C75AE5682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B857A19A-6566-4828-A40D-279C75AE5682}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

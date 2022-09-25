@@ -1,17 +1,17 @@
 import { useState} from 'react';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import Lobby from './components/Lobby';
 import Chat from './components/Chat';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as signalR from "@microsoft/signalr";
 import Login from "./components/Login";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import Layout from "./components/Layout";
 import Register from "./components/Register";
 import RequireAuth from "./components/RequireAuth";
 import useAuth from "./hooks/useAuth";
 import {axiosPrivate} from "./api/axios";
+require('dotenv').config()
+
  
 const App = () => {
   const [connection, setConnection] = useState();
@@ -43,7 +43,7 @@ const App = () => {
   const joinRoom = async (userEmail, roomId ) => {
     try {
       const connection = new HubConnectionBuilder()
-          .withUrl("https://localhost:7284/chat",
+          .withUrl(process.env.REACT_APP_CHAT_URL,
               { skipNegotiation: true,
                 transport: signalR.HttpTransportType.WebSockets
               })

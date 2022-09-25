@@ -6,11 +6,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as signalR from "@microsoft/signalr";
 import Login from "./components/Login";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import Layout from "./components/Layout";
 import Register from "./components/Register";
 import RequireAuth from "./components/RequireAuth";
 import useAuth from "./hooks/useAuth";
+import {axiosPrivate} from "./api/axios";
  
 const App = () => {
   const [connection, setConnection] = useState();
@@ -18,7 +19,27 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const { setAuth } = useAuth();
   const navigate = useNavigate();
-  
+  const location = useLocation();
+  const getOldMessages = async (roomId) => {
+    try {
+   
+      const controller = new AbortController();
+      const response = await axiosPrivate.get('/api/Messages/' + roomId, {
+        signal: controller.signal
+      });
+      
+      console.log(response.data);   
+      response.data.map((m, index) => {        
+        const user= m.user.userName;
+        const message = m.message;
+        setMessages(messages => [...messages, { user, message }]);        
+      });
+
+    } catch (err) {
+      console.error(err);
+      navigate('/login', { state: { from: location }, replace: true });
+    }
+  }
   const joinRoom = async (userEmail, roomId ) => {
     try {
       const connection = new HubConnectionBuilder()
@@ -28,7 +49,9 @@ const App = () => {
               })
           .configureLogging(LogLevel.Information)
           .build();
-
+      
+      await getOldMessages(roomId);
+      
       connection.on("ReceiveMessage", (user, message) => {
         setMessages(messages => [...messages, { user, message }]);
       });

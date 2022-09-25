@@ -1,4 +1,5 @@
 
+using System.Text.RegularExpressions;
 using ChatDomain.Models;
 using ChatInfrastruncture.Data;
 using ChatInfrastruncture.Service;
@@ -15,8 +16,9 @@ namespace ChatBackend.Hub
         private readonly UserService _userService;
         private readonly MessageService _messageService;
         private readonly RoomService _roomService;
+        private readonly StockService _stockService;
         private readonly UserManager<IdentityUser> _userManager;
-        public ChatHub(IDictionary<string, UserConnection> connections,  UserManager<IdentityUser> userManager, UserService userService, MessageService messageService,RoomService roomService )
+        public ChatHub(IDictionary<string, UserConnection> connections,  UserManager<IdentityUser> userManager, UserService userService, MessageService messageService,RoomService roomService, StockService stockService )
         {
             _botUser = "Bot Moderator";            
             _connections = connections;
@@ -24,6 +26,7 @@ namespace ChatBackend.Hub
             _messageService = messageService;
             _roomService = roomService;
             _userManager = userManager;
+            _stockService = stockService;
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
@@ -55,7 +58,6 @@ namespace ChatBackend.Hub
                     .ContinueWith(async _ =>
                     {
                         await Groups.AddToGroupAsync(Context.ConnectionId,userConnection.Room.name );
-                        //await LoadOldMessages(userConnection.Room.id, userConnection.Room.name);
 
                     })
                     .ContinueWith(async _ =>
@@ -72,21 +74,43 @@ namespace ChatBackend.Hub
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
+                
                 await _messageService.Add(new Message(){ message=message, roomId = Convert.ToInt16(userConnection.RoomId), userId = userConnection.User.Id ,createdAt = DateTime.Now});
                 await Clients.Group(userConnection.Room.name)
                     .SendAsync("ReceiveMessage", userConnection.User.UserName, message);
+                await ProcessMessages(message);
             }
         }
-        private async Task LoadOldMessages(int roomId,string roomName)
+        public async Task SendBotMessage(Message message)
         {
-            foreach (var msg in _messageService.GetRoomMessageLimit(roomId,50))
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                await Clients.Group(roomName).SendAsync("ReceiveMessage", msg.user.UserName, msg.message);
+
+                await Clients.Group(userConnection.Room.name)
+                    .SendAsync("ReceiveMessage", _botUser , message.message);
+            }
+        }
+        /// <summary>
+        /// Method in charge of look for a command
+        /// </summary>
+        /// <param name="message"></param>
+        private async Task ProcessMessages(string message)
+        {
+            var regex = new Regex("/stock=(.*)");
+            if (regex.IsMatch(message.ToLower()))
+            {
+                var stock = regex.Match(message.ToLower()).Groups[1].Value;
+                var msg = await _stockService.GetStockData(stock);
+                await SendBotMessage(msg);
             }
 
-            
-        }
-
+            }
+      
+        /// <summary>
+        /// Sends Users connected to the queue
+        /// </summary>
+        /// <param name="room"></param>
+        /// <returns></returns>
         public Task SendUsersConnected(string room)
         {
             var users = _connections.Values

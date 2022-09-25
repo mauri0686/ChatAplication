@@ -28,7 +28,7 @@ namespace ChatInfrastruncture.Service
         }
         public  IQueryable<Message> GetRoomMessageLimit(int roomId, int limit )
         {
-            return _repository.GetQueryable().Include(m=> m.user).Where(x=> x.roomId == roomId).OrderByDescending(x=> x.createdAt).Take(limit);
+            return _repository.GetQueryable().Include(m=> m.user).Where(x=> x.roomId == roomId).OrderBy(x=> x.createdAt).Take(limit);
         }
         
         public async Task Add(Message message)

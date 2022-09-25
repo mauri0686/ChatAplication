@@ -18,24 +18,14 @@ public class MessagesController : ControllerBase
     {
         _messageService = messageservice;
     }
- 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> Get(int id)
-    {
- 
-        var message = await _messageService.Get(id);
-        if (message == null)
-            return BadRequest("Invalid Id");
 
-        return Ok(message);
-    }
-   
-    [HttpGet]
-    public async Task<IActionResult> Get()
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("{roomId}")]
+    public async Task<IActionResult> Get(string roomId)
     {
  
-        var message =  await _messageService.GetRoomMessageLimit(1,50).ToListAsync();
+        var message =  await _messageService.GetRoomMessageLimit(Convert.ToInt16(roomId),50).ToListAsync();
         if (message == null)
             return BadRequest("Invalid Id");
 

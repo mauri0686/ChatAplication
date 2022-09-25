@@ -25,10 +25,12 @@ builder.Services.AddDbContext<ChatAppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Conn")));
 
  
-builder.Services.AddScoped(typeof(IRepository<>), typeof( Repository<>));    
+builder.Services.AddScoped(typeof(IRepository<>), typeof( Repository<>));  
+builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped< MessageService>();      
 builder.Services.AddScoped< RoomService>();      
 builder.Services.AddScoped< UserService>();
+builder.Services.AddScoped< StockService>();
 
 
 

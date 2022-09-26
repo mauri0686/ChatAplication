@@ -12,7 +12,7 @@ namespace ChatInfrastruncture.Service
         #endregion
 
         #region Constructor
-        public RoomService(IRepository<Room?> repository)
+        public RoomService(IRepository<Room> repository)
         {
             _repository = repository;
          

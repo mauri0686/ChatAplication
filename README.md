@@ -1,7 +1,7 @@
 # Chat Aplication - 
 
 ### JobSity Code Challenge
-[](net-challenge-financial-chat_6137a578d338d.pdf)
+[net-challege-financial-chat PDF](net-challenge-financial-chat_6137a578d338d.pdf)
 
 ## Technology
 ![](ChatReactSite/ClientApp/assets/img_6.png)![](ChatReactSite/ClientApp/assets/img_7.png)![](ChatReactSite/ClientApp/assets/img_8.png)![](ChatReactSite/ClientApp/assets/img_9.png)
